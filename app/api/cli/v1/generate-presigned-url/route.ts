@@ -5,8 +5,8 @@ import { NextResponse } from "next/server";
 const s3Client = new S3Client({
   region: process.env.AWS_REGION as string,
   credentials: {
-    accessKeyId: process.env.AWS_ACCESS_KEY_ID as string,
-    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY as string,
+    accessKeyId: process.env.accessKeyId as string,
+    secretAccessKey: process.env.secretAccessKey as string,
   },
 });
 
@@ -15,7 +15,7 @@ export async function POST(req: Request) {
     await req.json();
   console.log(filename, contentType);
   const command = new PutObjectCommand({
-    Bucket: process.env.AWS_S3_BUCKET_NAME as string,
+    Bucket: process.env.NEXT_PUBLIC_AWS_S3 as string,
     Key: filename,
     ContentType: contentType,
   });

@@ -5,14 +5,22 @@ export async function POST(req: Request, res: Response) {
   try {
     const body = await req.json();
     console.log(body)
-    await prisma.package.create({
+    const packageDetails = await prisma.packageDetails.create({
       data: {
-        packageId: 414,
-        packageName: body.repoName,
-        passKey: body.passKey,
-        userId: 123456,
+        name: body.repoName,
+        downloadUrl:`https://meow-hub-storage.s3.amazonaws.com/${body.repoName}}`
       },
     });
+
+    await prisma.package.create({
+      data:{
+        packageId: packageDetails.id,
+        packageName: body.repoName,
+        passKey: body.passKey,
+        userId: 9,
+      }
+    })
+
     return NextResponse.json({ message: "audit record created successfully" });
   } catch (error) {
     console.error("Error processing request:", error);

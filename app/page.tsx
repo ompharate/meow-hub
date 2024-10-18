@@ -67,7 +67,7 @@ export default function Component() {
         </nav>
       </header>
       <main className="flex-1">
-        <section className="w-full py-12 md:py-24 lg:py-32 xl:py-48">
+        <section className="w-full py-12 md:py-24 lg:py-32 xl:py-10">
           <div className="container px-4 md:px-6">
               <h1 className="text-5xl font-bold text-[#EF4444]">~ MeowHub</h1>
             <div className="grid gap-6 lg:grid-cols-[1fr_400px] lg:gap-12 xl:grid-cols-[1fr_600px]">
@@ -83,12 +83,12 @@ export default function Component() {
                   </p>
                 </div>
                 <div className="w-full max-w-sm space-y-2">
-                  <form className="flex space-x-2">
-                    <Button onClick={goToLogin} variant={"destructive"} type="submit">
+                  <div className="flex space-x-2">
+                    <Button onClick={goToLogin} variant={"destructive"}>
                       Sign up for GitHub
                     </Button>
-                    <Button onClick={goToLogin} type="submit">Sign up for Google</Button>
-                  </form>
+                    <Button onClick={goToLogin}>Sign up for Google</Button>
+                  </div>
                   <p className="text-xs text-gray-500">
                     By clicking "Sign up for GitHub", you agree to our Terms of
                     Service and Privacy Statement.
@@ -322,7 +322,7 @@ export default function Component() {
                     placeholder="Enter your email"
                     type="email"
                   />
-                  <Button type="submit">
+                  <Button>
                     Get started
                     <ArrowRight className="ml-2 h-4 w-4" />
                   </Button>

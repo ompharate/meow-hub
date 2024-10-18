@@ -8,7 +8,7 @@ datasource db {
 }
 
 model PackageDetails {
-  id          BigInt    @id @default(autoincrement())
+  id          String    @id 
   name        String    @db.VarChar(255)
   description String?    @db.VarChar(255)
   downloadUrl String    @db.VarChar(255)
@@ -16,19 +16,18 @@ model PackageDetails {
 }
 
 model Package {
-  id             BigInt         @id @default(autoincrement())
+  id             String         @id
   packageName    String         @db.VarChar(255)
-  userId         BigInt
-  packageId      BigInt
+  userId         String
+  packageId      String
   passKey        String
   packageDetails PackageDetails @relation("PackageDetailsPackages", fields: [packageId], references: [id], onDelete: NoAction, onUpdate: NoAction)
   user           User           @relation("UserPackages", fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction)
 }
 
 model User {
-  id       BigInt    @id @default(autoincrement())
+  id       String    @id 
   email    String    @unique @db.VarChar(255)
-  password String    @db.VarChar(255)
   passKey  String    @db.VarChar(255)
   packages Package[] @relation("UserPackages")
 }

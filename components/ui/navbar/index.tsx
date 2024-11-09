@@ -35,8 +35,8 @@ const Header = () => {
               >
                 Star
               </Link>
-              <Link
-                href="#"
+              <Link 
+                href="/docs/introduction"
                 className=" hover:text-gray-300 px-3 py-2 rounded-md text-sm font-medium"
               >
                 Meow-cli

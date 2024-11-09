@@ -1,0 +1,3 @@
+-- AlterTable
+ALTER TABLE "PackageDetails" ADD COLUMN     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+ADD COLUMN     "visibility" BOOLEAN NOT NULL DEFAULT true;

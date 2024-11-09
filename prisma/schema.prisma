@@ -8,10 +8,12 @@ datasource db {
 }
 
 model PackageDetails {
-  id          String    @id 
+  id          String    @id
   name        String    @db.VarChar(255)
-  description String?    @db.VarChar(255)
+  description String?   @db.VarChar(255)
   downloadUrl String    @db.VarChar(255)
+  visibility  Boolean   @default(true)
+  createdAt   DateTime  @default(now())
   packages    Package[] @relation("PackageDetailsPackages")
 }
 
@@ -21,12 +23,13 @@ model Package {
   userId         String
   packageId      String
   passKey        String
+  isStarted      Boolean        @default(false)
   packageDetails PackageDetails @relation("PackageDetailsPackages", fields: [packageId], references: [id], onDelete: NoAction, onUpdate: NoAction)
   user           User           @relation("UserPackages", fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction)
 }
 
 model User {
-  id       String    @id 
+  id       String    @id
   email    String    @unique @db.VarChar(255)
   passKey  String    @db.VarChar(255)
   packages Package[] @relation("UserPackages")

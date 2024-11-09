@@ -10,35 +10,73 @@ import {
 } from "@/components/ui/table";
 import { Star } from "lucide-react";
 import { Button } from "../ui/button";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { getAllPackages } from "@/lib/api";
-
-interface PackageType {
-  id: string;
-  packageName: string;
-  userId: string;
-  packageId: string;
-  passKey: string;
-  description?: string; // Assuming these properties may exist
-  version?: string; // Adjust according to your API response
-  lastUpdated?: string; // Adjust according to your API response
-}
+import Link from "next/link";
+import { useUser } from "@clerk/nextjs";
 
 const AllPackages: React.FC = () => {
+  const { user } = useUser();
+  const queryClient = useQueryClient();
+
   const { data, isLoading, error } = useQuery({
-    queryKey: ["allPackages"],
-    queryFn: getAllPackages,
+    queryKey: ["allPackages", user?.id],
+    queryFn: () => getAllPackages(user?.id),
+  });
+
+  const starPackageCreateMutation = useMutation({
+    mutationFn: async ({
+      packageId,
+      userId,
+    }: {
+      packageId: string;
+      userId: any;
+    }) => {
+      await fetch("/api/user/star/create", {
+        method: "POST",
+        body: JSON.stringify({ packageId, userId }),
+        headers: { "Content-Type": "application/json" },
+      });
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: ["allPackages", user?.id],
+      });
+    },
+  });
+  const starPackageRemoveMutation = useMutation({
+    mutationFn: async ({
+      packageId,
+      userId,
+    }: {
+      packageId: string;
+      userId: any;
+    }) => {
+      alert(packageId)
+      await fetch("/api/user/star/remove", {
+        method: "POST",
+        body: JSON.stringify({ packageId, userId }),
+        headers: { "Content-Type": "application/json" },
+      });
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: ["allPackages", user?.id],
+      });
+    },
   });
 
   console.log("data is coming:", data);
 
   if (isLoading) return <div>Loading...</div>;
   if (error) return <div>Error: {error.message}</div>;
-  
-  if (data?.packages.length <= 0) {
+
+  if (data && data?.packages.length <= 0) {
     return (
       <div className="text-white text-center space-y-10 mt-4">
-        <h1>No packages found. Please push your first package using meow-cli.</h1>
+        <h1>
+          No packages found. Please push your first package using meow-cli.
+        </h1>
         <Button size="sm" variant={"secondary"}>
           Learn more
         </Button>
@@ -55,19 +93,42 @@ const AllPackages: React.FC = () => {
             <TableHead className="w-[300px]">Package Name</TableHead>
             <TableHead>Description</TableHead>
             <TableHead>Version</TableHead>
-            <TableHead>Last Updated</TableHead>
+            <TableHead>Created At</TableHead>
             <TableHead className="text-right">Actions</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
-          {data.packages.map((pack: PackageType) => (
-            <TableRow className="hover:bg-transparent cursor-pointer" key={pack.id}>
-              <TableCell className="font-medium">{pack.packageName}</TableCell>
-              <TableCell>{pack.description || "No description available"}</TableCell>
+          {data?.packages?.map((pack: any) => (
+            <TableRow
+              className="hover:bg-transparent cursor-pointer"
+              key={pack.id}
+            >
+              <TableCell className="font-medium">
+                <Link href={`/dashboard/packages/${pack.id}`}>
+                  {pack.packageName}
+                </Link>
+              </TableCell>
+              <TableCell>
+                {pack.description || "No description available"}
+              </TableCell>
               <TableCell>{pack.version || "N/A"}</TableCell>
-              <TableCell>{pack.lastUpdated || "N/A"}</TableCell>
+              <TableCell>{pack.packageDetails.createdAt || "N/A"}</TableCell>
               <TableCell className="text-right">
-                <Button size="sm" variant="ghost">
+                <Button
+                  onClick={() => {
+                    pack.isStarted
+                      ? starPackageRemoveMutation.mutate({
+                          packageId: pack.id,
+                          userId: user?.id,
+                        })
+                      : starPackageCreateMutation.mutate({
+                          packageId: pack.id,
+                          userId: user?.id,
+                        });
+                  }}
+                  size="sm"
+                  variant={pack.isStarted ? "secondary" : "ghost"}
+                >
                   <Star className="h-4 w-4 mr-2" />
                   Star
                 </Button>
@@ -76,9 +137,6 @@ const AllPackages: React.FC = () => {
           ))}
         </TableBody>
       </Table>
-      <div className="mt-4 flex justify-center">
-        <Button variant="outline">Load More</Button>
-      </div>
     </div>
   );
 };

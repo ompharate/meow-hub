@@ -1,32 +1,11 @@
 "use client";
-import AlertComp from "@/components/alert";
 import StatCardGroup from "@/components/stat-card-group/Cardgroup";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import {
-  TableHead,
-  TableRow,
-  TableHeader,
-  TableCell,
-  TableBody,
-  Table,
-} from "@/components/ui/table";
 import { useUser } from "@clerk/nextjs";
-import {
-  Bell,
-  Book,
-  GitBranch,
-  GitPullRequest,
-  Package,
-  Plus,
-  Search,
-  Star,
-} from "lucide-react";
+import { Book, GitBranch, GitPullRequest, Star } from "lucide-react";
 import Link from "next/link";
 
 export default function Dashboard() {
   const { user } = useUser();
-  console.log(user);
   return (
     <div className="min-h-screen  max-w-7xl mx-auto">
       <main className="container mx-auto px-4 py-8">
@@ -78,7 +57,16 @@ export default function Dashboard() {
               <ul className="space-y-2">
                 <li>
                   <Link
-                    href="#"
+                    href="/docs/introduction"
+                    className="flex items-center text-blue-600 hover:underline"
+                  >
+                    <Book className="h-4 w-4 mr-2" />
+                    Introduction to meow-hub
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="/docs/introduction"
                     className="flex items-center text-blue-600 hover:underline"
                   >
                     <Book className="h-4 w-4 mr-2" />
@@ -87,29 +75,20 @@ export default function Dashboard() {
                 </li>
                 <li>
                   <Link
-                    href="#"
+                    href="/docs/introduction"
                     className="flex items-center text-blue-600 hover:underline"
                   >
                     <Book className="h-4 w-4 mr-2" />
-                    Best practices for package management
+                    How to push and pull packages with meow-cli
                   </Link>
                 </li>
                 <li>
                   <Link
-                    href="#"
+                    href="/docs/introduction"
                     className="flex items-center text-blue-600 hover:underline"
                   >
                     <Book className="h-4 w-4 mr-2" />
-                    Security guidelines for package developers
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    href="#"
-                    className="flex items-center text-blue-600 hover:underline"
-                  >
-                    <Book className="h-4 w-4 mr-2" />
-                    API documentation for package integration
+                    How to make private and public packages
                   </Link>
                 </li>
               </ul>

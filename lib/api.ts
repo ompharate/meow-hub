@@ -1,13 +1,13 @@
-export const getAllPackages = async () => {
-  const response = await fetch("/api/user/packages/all", {
+export const getAllPackages = async (userId:string|undefined) => {
+  if (!userId) {
+    throw new Error("User ID is required");
+  }
+  const response = await fetch(`/api/user/packages/all?userId=${userId}`, {
     method: "GET",
   });
 
   if (!response.ok) {
     throw new Error(`HTTP error! status: ${response.status}`);
   }
-
-
-
   return response.json();
 };

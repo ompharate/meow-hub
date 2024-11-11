@@ -8,7 +8,6 @@ export default function Packages() {
         <div className="mb-8">
           <h1 className="text-2xl font-bold mb-4 text-white ">Your Packages</h1>
           <AllPackages />
-         
         </div>
       </main>
     </div>

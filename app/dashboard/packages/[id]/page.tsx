@@ -8,6 +8,7 @@ import {
   Calendar,
   Check,
   Copy,
+  Delete,
   Download,
   DownloadCloud,
   Eye,
@@ -17,6 +18,7 @@ import {
   Star,
 } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
+import { useRouter } from "next/navigation";
 
 export default function PackageDetailPage({
   params,
@@ -24,7 +26,7 @@ export default function PackageDetailPage({
   params: { id: string };
 }) {
   const [copied, setCopied] = useState(false);
-
+  const router = useRouter();
   const handleCopy = (command: string) => {
     navigator.clipboard.writeText(command).then(() => {
       setCopied(true);
@@ -40,6 +42,15 @@ export default function PackageDetailPage({
       return data.package;
     },
   });
+
+  async function deletePackage(id: string) {
+    const response = await fetch("/api/user/packages/delete?id=" + id, {
+      method: "POST",
+    });
+    if (response.ok) {
+      router.push("/dashboard/packages");
+    }
+  }
 
   if (isLoading) return <h1>Loading....</h1>;
   if (data.length === 0)
@@ -102,6 +113,14 @@ export default function PackageDetailPage({
               >
                 <DownloadCloud />
                 Download
+              </Button>
+              <Button
+                onClick={() => deletePackage(data.id)}
+                variant="destructive"
+                size="sm"
+              >
+                <Delete />
+                Delete
               </Button>
             </div>
           </div>

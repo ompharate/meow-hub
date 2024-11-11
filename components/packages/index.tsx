@@ -112,7 +112,7 @@ const AllPackages: React.FC = () => {
                 {pack.description || "No description available"}
               </TableCell>
               <TableCell>{pack.version || "N/A"}</TableCell>
-              <TableCell>{pack.packageDetails.createdAt || "N/A"}</TableCell>
+              <TableCell>{pack?.packageDetails?.createdAt || "N/A"}</TableCell>
               <TableCell className="text-right">
                 <Button
                   onClick={() => {

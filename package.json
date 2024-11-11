@@ -23,6 +23,7 @@
     "aws-sdk": "^2.1691.0",
     "bcrypt": "^5.1.1",
     "class-variance-authority": "^0.7.0",
+    "clerk": "^0.8.3",
     "clsx": "^2.1.1",
     "lucide-react": "^0.453.0",
     "nanoid": "^5.0.7",

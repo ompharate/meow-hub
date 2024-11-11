@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
@@ -17,8 +17,9 @@ export default function Component() {
   const router = useRouter();
 
   const goToLogin = () => {
-    router.push("/sign-in")
-  }
+
+    router.push("/sign-in");
+  };
 
   return (
     <div className="flex flex-col min-h-screen max-w-7xl mx-auto text-white">
@@ -69,7 +70,7 @@ export default function Component() {
       <main className="flex-1">
         <section className="w-full py-12 md:py-24 lg:py-32 xl:py-10">
           <div className="container px-4 md:px-6">
-              <h1 className="text-5xl font-bold text-[#EF4444]">~ MeowHub</h1>
+            <h1 className="text-5xl font-bold text-[#EF4444]">~ MeowHub</h1>
             <div className="grid gap-6 lg:grid-cols-[1fr_400px] lg:gap-12 xl:grid-cols-[1fr_600px]">
               <div className="flex flex-col justify-center space-y-4">
                 <div className="space-y-2">
@@ -77,9 +78,9 @@ export default function Component() {
                     Where the world builds software
                   </h1>
                   <p className="max-w-[600px] text-gray-500 md:text-xl">
-                    Millions of developers and companies build, ship, and
-                    maintain their software on GitHub—the largest and most
-                    advanced development platform in the world.
+                    Meow Hub is a platform for developers to discover, share,
+                    and manage open-source packages. Join the
+                    community and streamline your development process..
                   </p>
                 </div>
                 <div className="w-full max-w-sm space-y-2">

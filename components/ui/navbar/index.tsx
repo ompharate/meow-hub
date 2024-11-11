@@ -5,6 +5,7 @@ import { Button } from "../button";
 
 import React from "react";
 import { UserButton } from "@clerk/nextjs";
+import SearchBar from "@/components/search";
 
 const Header = () => {
   return (
@@ -30,36 +31,28 @@ const Header = () => {
                 Packages
               </Link>
               <Link
-                href="#"
+                href="/dashboard/star"
                 className=" hover:text-gray-300 px-3 py-2 rounded-md text-sm font-medium"
               >
                 Star
               </Link>
-              <Link 
+              <Link
                 href="/docs/introduction"
                 className=" hover:text-gray-300 px-3 py-2 rounded-md text-sm font-medium"
               >
                 Meow-cli
               </Link>
-             
             </nav>
           </div>
           <div className="flex items-center space-x-4">
-            <div className="relative">
-              <Input
-                className="w-64 pl-8 border border-[#EF4444]"
-                placeholder="Search or jump to..."
-                type="search"
-              />
-              <Search className="absolute left-2 top-2.5 h-4 w-4 text-gray-400" />
-            </div>
+            <SearchBar />
             <Button size="icon" variant="ghost">
               <Bell className="h-5 w-5" />
             </Button>
             <Button size="icon" variant="ghost">
               <Plus className="h-5 w-5" />
             </Button>
-           <UserButton/>
+            <UserButton />
           </div>
         </div>
       </div>

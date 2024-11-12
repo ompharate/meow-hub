@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -36,12 +36,13 @@ export default function PackageDetailPage({
 
   const { data, isLoading } = useQuery({
     queryKey: ["package"],
-    queryFn: async () => {
+    queryFn: async () => {  
       const response = await fetch(`/api/user/packages/${params.id}`);
       const data = await response.json();
       return data.package;
     },
   });
+  const [description, setDescription] = useState(data?.description);
 
   async function deletePackage(id: string) {
     const response = await fetch("/api/user/packages/delete?id=" + id, {
@@ -50,6 +51,15 @@ export default function PackageDetailPage({
     if (response.ok) {
       router.push("/dashboard/packages");
     }
+  }
+  async function updatePackage() {
+    const response = await fetch("/api/user/packages/update", {
+      method: "POST",
+      body: JSON.stringify({
+        packageId: data?.id,
+        description,
+      }),
+    });
   }
 
   if (isLoading) return <h1>Loading....</h1>;
@@ -158,32 +168,15 @@ export default function PackageDetailPage({
               <TabsTrigger value="versions">Versions</TabsTrigger>
             </TabsList>
             <TabsContent value="readme">
-              <div className="prose max-w-none">
-                <h2 className="">Awesome React Components</h2>
-                <p>
-                  This package contains a collection of reusable React
-                  components that can be easily integrated into your projects.
-                  These components are designed to be flexible, accessible, and
-                  customizable to fit various use cases.
-                </p>
-                <h3>Features</h3>
-                <ul>
-                  <li>Fully responsive design</li>
-                  <li>Customizable themes</li>
-                  <li>Accessibility-first approach</li>
-                  <li>Extensive documentation</li>
-                  <li>Regular updates and maintenance</li>
-                </ul>
-                <h3>Installation</h3>
-                <pre>
-                  <code>npm install awesome-react-components</code>
-                </pre>
-                <h3>Usage</h3>
-                <p>
-                  Import the components you need and start using them in your
-                  React application. Refer to the documentation for detailed
-                  usage instructions and examples.
-                </p>
+              <div className="prose">
+                <textarea
+                  onChange={(e) => setDescription(e.target.value)}
+                  className="w-full border border-gray-400 rounded-xl bg-transparent"
+                  value={description}
+                ></textarea>
+                <Button onClick={updatePackage} className="float-right">
+                  save
+                </Button>
               </div>
             </TabsContent>
             <TabsContent value="files">

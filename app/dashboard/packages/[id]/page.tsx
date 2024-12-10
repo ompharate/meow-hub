@@ -1,9 +1,8 @@
 "use client";
-import { useCallback, useState } from "react";
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import {
   Calendar,
   Check,
@@ -52,15 +51,7 @@ export default function PackageDetailPage({
       router.push("/dashboard/packages");
     }
   }
-  async function updatePackage() {
-    const response = await fetch("/api/user/packages/update", {
-      method: "POST",
-      body: JSON.stringify({
-        packageId: data?.id,
-        description,
-      }),
-    });
-  }
+
 
   if (isLoading) return <h1>Loading....</h1>;
   if (data.length === 0)
@@ -107,14 +98,7 @@ export default function PackageDetailPage({
               </span>
             </div>
             <div className="flex items-center space-x-2">
-              <Button className="text-black" variant="outline" size="sm">
-                <GitBranch className="mr-2 h-4 w-4" />
-                Fork
-              </Button>
-              <Button className="text-black" variant="outline" size="sm">
-                <History className="mr-2 h-4 w-4" />
-                Versions
-              </Button>
+            
               <Button
                 onClick={() => downloadPackage(data.downloadUrl)}
                 className="text-black"
@@ -161,31 +145,7 @@ export default function PackageDetailPage({
             </div>
           </div>
 
-          <Tabs defaultValue="readme" className="w-full">
-            <TabsList>
-              <TabsTrigger value="readme">README</TabsTrigger>
-              <TabsTrigger value="files">Files</TabsTrigger>
-              <TabsTrigger value="versions">Versions</TabsTrigger>
-            </TabsList>
-            <TabsContent value="readme">
-              <div className="prose">
-                <textarea
-                  onChange={(e) => setDescription(e.target.value)}
-                  className="w-full border border-gray-400 rounded-xl bg-transparent"
-                  value={description}
-                ></textarea>
-                <Button onClick={updatePackage} className="float-right">
-                  save
-                </Button>
-              </div>
-            </TabsContent>
-            <TabsContent value="files">
-              <p>File list would go here...</p>
-            </TabsContent>
-            <TabsContent value="versions">
-              <p>Version history would go here...</p>
-            </TabsContent>
-          </Tabs>
+          
         </div>
       </main>
     </div>

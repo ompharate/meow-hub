@@ -24,47 +24,24 @@ export default function Component() {
   return (
     <div className="flex flex-col min-h-screen max-w-7xl mx-auto text-white">
       <header className="px-4 lg:px-6 h-14 flex items-center">
-        <a className="flex items-center justify-center" href="#">
+        <Link className="flex items-center justify-center" href="#">
           <GithubIcon className="h-6 w-6" />
           <span className="sr-only">GitHub</span>
-        </a>
+        </Link>
         <nav className="ml-auto flex gap-4 sm:gap-6">
-          <a
+        
+          <Link
             className="text-sm font-medium hover:underline underline-offset-4"
-            href="#"
+            href="/dashboard"
           >
-            Product
-          </a>
-          <a
+            Dashboard
+          </Link>
+          <Link
             className="text-sm font-medium hover:underline underline-offset-4"
-            href="#"
+            href="/sign-in"
           >
-            Team
-          </a>
-          <a
-            className="text-sm font-medium hover:underline underline-offset-4"
-            href="#"
-          >
-            Enterprise
-          </a>
-          <a
-            className="text-sm font-medium hover:underline underline-offset-4"
-            href="#"
-          >
-            Explore
-          </a>
-          <a
-            className="text-sm font-medium hover:underline underline-offset-4"
-            href="#"
-          >
-            Marketplace
-          </a>
-          <a
-            className="text-sm font-medium hover:underline underline-offset-4"
-            href="#"
-          >
-            Pricing
-          </a>
+            Login
+          </Link>
         </nav>
       </header>
       <main className="flex-1">
@@ -85,13 +62,10 @@ export default function Component() {
                 </div>
                 <div className="w-full max-w-sm space-y-2">
                   <div className="flex space-x-2">
-                    <Button onClick={goToLogin} variant={"destructive"}>
-                      Sign up for GitHub
-                    </Button>
                     <Button onClick={goToLogin}>Sign up for Google</Button>
                   </div>
                   <p className="text-xs text-gray-500">
-                    By clicking "Sign up for GitHub", you agree to our Terms of
+                    By clicking "Sign up ", you agree to our Terms of
                     Service and Privacy Statement.
                   </p>
                 </div>
@@ -148,7 +122,7 @@ export default function Component() {
                     Push your projects in single command
                   </p>
                 </div>
-                <a href="#">
+                <Link href="#">
                   <div className="bg-gray-300 dark:bg-gray-700 w-10 h-10 rounded-full absolute bottom-0 left-0 m-4 flex justify-center items-center hover:ring-4 ring-gray-200 dark:ring-gray-400 hover:transition duration-700 ease-in-out">
                     <svg
                       id="Arrow.7"
@@ -193,7 +167,7 @@ export default function Component() {
                       ></path>
                     </svg>
                   </div>
-                </a>
+                </Link>
               </div>
             </div>
             <div className="bg-white w-[300px] rounded-[30px] flex flex-col justify-center hover:shadow-lg min-h-[280px] dark:bg-gray-800 dark:text-white items-start relative group">
@@ -221,7 +195,7 @@ export default function Component() {
                     View you packages on platform
                   </p>
                 </div>
-                <a href="#">
+                <Link href="#">
                   <div className="bg-gray-300 dark:bg-gray-700 w-10 h-10 rounded-full absolute bottom-0 left-0 m-4 flex justify-center items-center hover:ring-4 ring-gray-200 dark:ring-gray-400 hover:transition duration-700 ease-in-out">
                     <svg
                       id="Arrow.7"
@@ -266,7 +240,7 @@ export default function Component() {
                       ></path>
                     </svg>
                   </div>
-                </a>
+                </Link>
               </div>
             </div>
           </div>
@@ -309,11 +283,11 @@ export default function Component() {
             <div className="flex flex-col items-center justify-center space-y-4 text-center">
               <div className="space-y-2">
                 <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">
-                  Start your free trial today
+                  Sign-up to get started
                 </h2>
                 <p className="max-w-[900px] text-gray-500 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed dark:text-gray-400">
                   Join millions of developers and organizations building amazing
-                  things with GitHub.
+                  things with meow-hub.
                 </p>
               </div>
               <div className="w-full max-w-sm space-y-2">
@@ -335,28 +309,9 @@ export default function Component() {
       </main>
       <footer className="flex flex-col gap-2 sm:flex-row py-6 w-full shrink-0 items-center px-4 md:px-6 border-t">
         <p className="text-xs text-gray-500 dark:text-gray-400">
-          © 2023 GitHub, Inc. All rights reserved.
+          © 2024 meow-hub
         </p>
-        <nav className="sm:ml-auto flex gap-4 sm:gap-6">
-          <Link className="text-xs hover:underline underline-offset-4" href="#">
-            Terms of Service
-          </Link>
-          <Link className="text-xs hover:underline underline-offset-4" href="#">
-            Privacy
-          </Link>
-          <Link className="text-xs hover:underline underline-offset-4" href="#">
-            Docs
-          </Link>
-          <Link className="text-xs hover:underline underline-offset-4" href="#">
-            Contact GitHub
-          </Link>
-          <Link className="text-xs hover:underline underline-offset-4" href="#">
-            Pricing
-          </Link>
-          <Link className="text-xs hover:underline underline-offset-4" href="#">
-            API
-          </Link>
-        </nav>
+        
       </footer>
     </div>
   );
